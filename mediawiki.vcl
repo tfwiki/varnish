@@ -15,7 +15,13 @@ sub vcl_recv {
         # Serve objects up to 2 minutes past their expiry if the backend
         # is slow to respond.
         # set req.grace = 120s;
-        set req.http.X-Forwarded-For = client.ip;
+        
+        # We have a load balancer sitting in front of Varnish, so don't overwrite
+        # any existing X-Forwarded-For header.
+        if (!req.http.X-Forwarded-For) {
+            set req.http.X-Forwarded-For = client.ip;
+        }
+        
         set req.backend_hint= default;
  
         # This uses the ACL action called "purge". Basically if a request to
