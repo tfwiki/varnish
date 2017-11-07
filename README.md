@@ -1,0 +1,2 @@
+[![Docker Automated build](https://img.shields.io/docker/automated/tfwiki/varnish.svg)](https://hub.docker.com/r/tfwiki/varnish/)
+[![Docker Build Status](https://img.shields.io/docker/build/tfwiki/varnish.svg)](https://hub.docker.com/r/tfwiki/varnish/)
