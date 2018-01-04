@@ -79,6 +79,13 @@ sub vcl_recv {
         return (hash);
 }
 
+sub vcl_hash {
+
+    # Vary cache by protocol type to avoid caching things like HTTP->HTTPS redirects
+    hash_data(req.http.X-Forwarded-Proto);
+
+}
+
 sub vcl_pipe {
         # Note that only the first request to the backend will have
         # X-Forwarded-For set.  If you use X-Forwarded-For and want to
