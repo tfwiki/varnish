@@ -5,11 +5,6 @@ backend default {
     .port = "%BACKEND_PORT%";
 }
 
-# access control list for "purge": open to only localhost and other local nodes
-acl purge {
-    "%BACKEND_HOST%";
-}
-
 # vcl_recv is called whenever a request is received 
 sub vcl_recv {
         # Serve objects up to 2 minutes past their expiry if the backend
@@ -27,11 +22,7 @@ sub vcl_recv {
         # This uses the ACL action called "purge". Basically if a request to
         # PURGE the cache comes from anywhere other than localhost, ignore it.
         if (req.method == "PURGE") {
-            if (!client.ip ~ purge) {
-                return (synth(405, "Not allowed."));
-            } else {
-                return (purge);
-            }
+            return (purge);
         }
  
         # Pass any requests that Varnish does not understand straight to the backend.
