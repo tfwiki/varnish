@@ -119,10 +119,10 @@ sub vcl_backend_response {
           return (deliver);
         }
  
-#       if (beresp.http.Cache-Control ~ "(private|no-cache|no-store)") {
-#          set beresp.uncacheable = true;
-#          return (deliver);
-#        }
+       if (beresp.http.Cache-Control ~ "(private|no-cache|no-store)") {
+          set beresp.uncacheable = true;
+          return (deliver);
+        }
  
         if (beresp.http.Authorization && !beresp.http.Cache-Control ~ "public") {
           set beresp.uncacheable = true;
