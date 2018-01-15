@@ -16,4 +16,4 @@ EXPOSE 80
 CMD configure-varnish && \
     varnishd -a :80 -f /etc/varnish/mediawiki.vcl && \
     sleep 1 && \
-    varnishlog
+    varnishncsa
