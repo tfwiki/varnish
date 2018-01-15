@@ -7,6 +7,11 @@ backend default {
 
 # vcl_recv is called whenever a request is received 
 sub vcl_recv {
+        # Block external access to server-status
+        if (req.url ~ "^/server-status") {
+            return(synth(404,"Page not found"));
+        }
+
         # Serve objects up to 2 minutes past their expiry if the backend
         # is slow to respond.
         # set req.grace = 120s;
