@@ -8,7 +8,7 @@ backend default {
 # vcl_recv is called whenever a request is received 
 sub vcl_recv {
         # Block external access to server-status
-        if (req.url ~ "^/server-status") {
+        if (req.url ~ "^/+?server-status") {
             return(synth(404,"Page not found"));
         }
 
