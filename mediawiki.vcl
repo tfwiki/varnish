@@ -12,6 +12,11 @@ sub vcl_recv {
             return(synth(404,"Page not found"));
         }
 
+        # Block external access to w/mw-config
+        if (req.url ~ "^/+?w/+?mw-config") {
+            return(synth(404,"Page not found"));
+        }
+
         # Serve objects up to 2 minutes past their expiry if the backend
         # is slow to respond.
         # set req.grace = 120s;
