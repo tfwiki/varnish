@@ -115,9 +115,9 @@ sub vcl_backend_response {
         # set minimum timeouts to auto-discard stored objects
         set beresp.grace = 120s;
  
-        if (beresp.ttl < 48h) {
-          set beresp.ttl = 48h;
-        }
+        # if (beresp.ttl < 48h) {
+        #   set beresp.ttl = 48h;
+        # }
  
         if (!beresp.ttl > 0s) {
           set beresp.uncacheable = true;
